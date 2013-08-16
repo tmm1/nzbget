@@ -2088,28 +2088,28 @@ void DownloadUrlXmlCommand::Execute()
 		char* szCategory;
 		if (!NextParamAsStr(&szCategory))
 		{
-			BuildErrorResponse(2, "Invalid parameter");
+			BuildErrorResponse(2, "Invalid parameter: Category");
 			return;
 		}
 
 		int iPriority = 0;
 		if (!NextParamAsInt(&iPriority))
 		{
-			BuildErrorResponse(2, "Invalid parameter");
+			BuildErrorResponse(2, "Invalid parameter: Priority");
 			return;
 		}
 
 		bool bAddTop;
 		if (!NextParamAsBool(&bAddTop))
 		{
-			BuildErrorResponse(2, "Invalid parameter");
+			BuildErrorResponse(2, "Invalid parameter: AddToTop");
 			return;
 		}
 
 		char* szURL;
 		if (!NextParamAsStr(&szURL))
 		{
-			BuildErrorResponse(2, "Invalid parameter");
+			BuildErrorResponse(2, "Invalid parameter: URL");
 			return;
 		}
 
@@ -2135,7 +2135,7 @@ void DownloadUrlXmlCommand::Execute()
 
 	if (bFirst)
 	{
-		BuildErrorResponse(2, "Invalid parameter");
+		BuildErrorResponse(2, "Invalid parameter: NZBFilename");
 		return;
 	}
 
