@@ -168,6 +168,72 @@ void XmlRpcProcessor::Dispatch()
 	{
 		MutliCall();
 	}
+	else if (!strcasecmp(szMethodName, "fullstatus"))
+	{
+		XmlCommand* command;
+		StringBuilder cStringBuilder;
+
+		cStringBuilder.Append("{ \"version\": \"");
+		cStringBuilder.Append(Util::VersionRevision());
+
+		cStringBuilder.Append("\", \"status\": ");
+
+		command = CreateCommand("status");
+		command->SetRequest(szRequest);
+		command->SetProtocol(m_eProtocol);
+		command->SetHttpMethod(m_eHttpMethod);
+		command->PrepareParams();
+		command->Execute();
+		cStringBuilder.Append(command->GetResponse());
+		delete command;
+
+		cStringBuilder.Append(", \"listgroups\": ");
+
+		command = CreateCommand("listgroups");
+		command->SetRequest(szRequest);
+		command->SetProtocol(m_eProtocol);
+		command->SetHttpMethod(m_eHttpMethod);
+		command->PrepareParams();
+		command->Execute();
+		cStringBuilder.Append(command->GetResponse());
+		delete command;
+
+		cStringBuilder.Append(", \"postqueue\": ");
+
+		command = CreateCommand("postqueue");
+		command->SetRequest(szRequest);
+		command->SetProtocol(m_eProtocol);
+		command->SetHttpMethod(m_eHttpMethod);
+		command->PrepareParams();
+		command->Execute();
+		cStringBuilder.Append(command->GetResponse());
+		delete command;
+
+		cStringBuilder.Append(", \"history\": ");
+
+		command = CreateCommand("history");
+		command->SetRequest(szRequest);
+		command->SetProtocol(m_eProtocol);
+		command->SetHttpMethod(m_eHttpMethod);
+		command->PrepareParams();
+		command->Execute();
+		cStringBuilder.Append(command->GetResponse());
+		delete command;
+
+		cStringBuilder.Append(", \"urlqueue\": ");
+
+		command = CreateCommand("urlqueue");
+		command->SetRequest(szRequest);
+		command->SetProtocol(m_eProtocol);
+		command->SetHttpMethod(m_eHttpMethod);
+		command->PrepareParams();
+		command->Execute();
+		cStringBuilder.Append(command->GetResponse());
+		delete command;
+
+		cStringBuilder.Append("}");
+		BuildResponse(cStringBuilder.GetBuffer(), "", false);
+	}
 	else
 	{
 		XmlCommand* command = CreateCommand(szMethodName);
